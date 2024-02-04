@@ -5,10 +5,9 @@ import com.testeapi.vagas.demo.exceptions.EntityNotFoundException;
 import com.testeapi.vagas.demo.repositories.TodoRepository;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.mapper.TodoMapper;
-import org.modelmapper.ModelMapper;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +24,7 @@ public class TodoService {
     public Todo create(TodoCreateDTO todoCreateDTO) {
         try {
             return repository.save(TodoMapper.toModel(todoCreateDTO));
-        }catch (RuntimeException exception) {
+        } catch (RuntimeException exception) {
             throw new RuntimeException("Erro ao tentar salvar todo");
         }
     }
@@ -45,13 +44,15 @@ public class TodoService {
 
     @Transactional
     public void delete(Long id) {
-        Optional<Todo> optionalTodo = Optional.ofNullable(findById(id));
+        try {
+            Optional<Todo> optionalTodo = Optional.ofNullable(findById(id));
 
-        if (optionalTodo != null && optionalTodo.isPresent()) {
-            repository.deleteById(id);
-            return;
+            if (optionalTodo != null && optionalTodo.isPresent()) {
+                repository.deleteById(id);
+            }
+
+        } catch (EntityNotFoundException exception) {
+            throw new EntityNotFoundException(exception.getMessage());
         }
-
-        throw new EntityNotFoundException(String.format("Todo #%s não encontrado", id));
     }
 }
