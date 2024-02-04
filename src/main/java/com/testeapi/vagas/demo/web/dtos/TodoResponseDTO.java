@@ -4,15 +4,17 @@ public class TodoResponseDTO {
     private String nome;
     private String descricao;
     private String prioridade;
+    private boolean realizado;
 
     public TodoResponseDTO() {
     }
 
-    public TodoResponseDTO(String nome, String descricao, String prioridade) {
+    public TodoResponseDTO(String nome, String descricao, String prioridade, boolean realizado) {
 
         this.nome = nome;
         this.descricao = descricao;
         this.prioridade = prioridade;
+        this.realizado = realizado;
     }
 
     public String getNome() {
@@ -37,5 +39,13 @@ public class TodoResponseDTO {
 
     public void setPrioridade(String prioridade) {
         this.prioridade = prioridade;
+    }
+
+    public boolean isRealizado() {
+        return realizado;
+    }
+
+    public void setRealizado(boolean realizado) {
+        this.realizado = realizado;
     }
 }

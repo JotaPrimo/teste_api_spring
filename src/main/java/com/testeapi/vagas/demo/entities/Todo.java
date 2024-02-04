@@ -10,8 +10,8 @@ import java.util.Objects;
 @Table(name = "tb_todos")
 @Entity
 public class Todo {
-    private static final boolean NAO_REALIZADA = false;
-    private static final boolean REALIZADA = true;
+    public static final boolean NAO_REALIZADA = false;
+    public static final boolean REALIZADA = true;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

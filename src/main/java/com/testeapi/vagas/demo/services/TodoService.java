@@ -2,6 +2,7 @@ package com.testeapi.vagas.demo.services;
 
 import com.testeapi.vagas.demo.entities.Todo;
 import com.testeapi.vagas.demo.exceptions.EntityNotFoundException;
+import com.testeapi.vagas.demo.exceptions.TodoAlreadyCompletedException;
 import com.testeapi.vagas.demo.repositories.TodoRepository;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.mapper.TodoMapper;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TodoService {
@@ -44,15 +44,19 @@ public class TodoService {
 
     @Transactional
     public void delete(Long id) {
-        try {
-            Optional<Todo> optionalTodo = Optional.ofNullable(findById(id));
-
-            if (optionalTodo != null && optionalTodo.isPresent()) {
-                repository.deleteById(id);
-            }
-
-        } catch (EntityNotFoundException exception) {
-            throw new EntityNotFoundException(exception.getMessage());
-        }
+        repository.deleteById(id);
     }
+
+    @Transactional
+    public Todo complete(Long id) {
+        Todo todo = findById(id);
+
+        if(todo.isRealizado()) {
+            throw new TodoAlreadyCompletedException(String.format("Todo de com id #%s já está completada", id));
+        }
+
+        todo.setRealizado(Todo.REALIZADA);
+        return repository.save(todo);
+    }
+
 }
