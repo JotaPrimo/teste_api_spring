@@ -1,14 +1,13 @@
 package com.testeapi.vagas.demo.web.exception;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.testeapi.vagas.demo.services.DataService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ErrorMessage {
@@ -30,8 +29,9 @@ public class ErrorMessage {
     // message de erro simplficada
     private String message;
 
-    private LocalDateTime when;
+    private String when;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, String> errors;
 
     public ErrorMessage() {
@@ -44,17 +44,17 @@ public class ErrorMessage {
         this.statusText = status.getReasonPhrase();
         this.title = title;
         this.message = message;
-        this.when = LocalDateTime.now();
+        this.when = DataService.getDataAtualDMYHMS();
     }
 
-    public ErrorMessage(HttpServletRequest request, HttpStatus status, String title,String message, BindingResult result) {
+    public ErrorMessage(HttpServletRequest request, HttpStatus status, String title, String message, BindingResult result) {
         this.path = request.getRequestURI();
         this.method = request.getMethod();
         this.status = status.value();
         this.statusText = status.getReasonPhrase();
         this.message = message;
         this.title = title;
-        this.when = LocalDateTime.now();
+        this.when = DataService.getDataAtualDMYHMS();
         addErrors(result);
     }
 
@@ -113,11 +113,11 @@ public class ErrorMessage {
         this.message = message;
     }
 
-    public LocalDateTime getWhen() {
+    public String getWhen() {
         return when;
     }
 
-    public void setWhen(LocalDateTime when) {
+    public void setWhen(String when) {
         this.when = when;
     }
 
