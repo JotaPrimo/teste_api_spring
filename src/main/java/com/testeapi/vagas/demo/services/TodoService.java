@@ -39,19 +39,19 @@ public class TodoService {
     @Transactional(readOnly = true)
     public Todo findById(Long id) {
         return repository.findById(id).orElseThrow(
-                () -> new RuntimeException(String.format("Todo de id #%s", id))
+                () -> new EntityNotFoundException(String.format("Todo de id #%s", id))
         );
     }
 
     @Transactional
     public void delete(Long id) {
         Optional<Todo> optionalTodo = Optional.ofNullable(findById(id));
+
         if (optionalTodo != null && optionalTodo.isPresent()) {
             repository.deleteById(id);
             return;
         }
 
         throw new EntityNotFoundException(String.format("Todo #%s não encontrado", id));
-
     }
 }

@@ -60,13 +60,13 @@ public class TodoController {
        return ResponseEntity.status(HttpStatus.CREATED).body(TodoMapper.toDTO(todoCreatead));
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<TodoResponseDTO> findById(@PathVariable Long id) {
-//        Todo todo = todoService.findById(id);
-//        return ResponseEntity.status(HttpStatus.OK).body(TodoMapper.toDTO(todo));
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<TodoResponseDTO> findById(@PathVariable Long id) {
+        Todo todo = todoService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(TodoMapper.toDTO(todo));
+    }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         todoService.delete(id);
         return ResponseEntity.noContent().build();
