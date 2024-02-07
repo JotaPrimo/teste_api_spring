@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/todos")
 public class TodoController {
-    public static final String URI_USUARIOS = "api/v1/todos";
+    public static final String TODO_URL = "api/v1/todos";
     private final TodoService todoService;
 
     public TodoController(TodoService todoService) {

@@ -29,6 +29,7 @@ public class Todo {
 
     @Column(name = "realizado", columnDefinition = "boolean default false")
     private boolean realizado;
+
     @Enumerated(EnumType.STRING)
     private Prioridade prioridade;
 

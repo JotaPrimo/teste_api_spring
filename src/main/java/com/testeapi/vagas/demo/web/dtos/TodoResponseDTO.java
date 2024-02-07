@@ -1,6 +1,7 @@
 package com.testeapi.vagas.demo.web.dtos;
 
 public class TodoResponseDTO {
+    private Long id;
     private String nome;
     private String descricao;
     private String prioridade;
@@ -15,6 +16,14 @@ public class TodoResponseDTO {
         this.descricao = descricao;
         this.prioridade = prioridade;
         this.realizado = realizado;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
