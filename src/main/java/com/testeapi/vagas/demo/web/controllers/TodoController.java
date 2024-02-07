@@ -1,6 +1,7 @@
 package com.testeapi.vagas.demo.web.controllers;
 
 import com.testeapi.vagas.demo.entities.Todo;
+import com.testeapi.vagas.demo.path.ApiPaths;
 import com.testeapi.vagas.demo.services.TodoService;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.TodoResponseDTO;
@@ -19,9 +20,8 @@ import java.util.List;
 
 @Tag(name = "Todos", description = "Operações crud de todo")
 @RestController
-@RequestMapping("api/v1/todos")
+@RequestMapping(ApiPaths.TODO_PATH)
 public class TodoController {
-    public static final String TODO_URL = "api/v1/todos";
     private final TodoService todoService;
 
     public TodoController(TodoService todoService) {
@@ -113,7 +113,6 @@ public class TodoController {
     @PatchMapping("/{id}/completed")
     public ResponseEntity<TodoResponseDTO> complete(@PathVariable Long id) {
         Todo todoCompleted = todoService.complete(id);
-
         return ResponseEntity.status(HttpStatus.OK).body(TodoMapper.toDTO(todoCompleted));
     }
 

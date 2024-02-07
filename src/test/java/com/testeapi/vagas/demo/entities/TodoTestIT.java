@@ -1,6 +1,7 @@
 package com.testeapi.vagas.demo.entities;
 
 import com.testeapi.vagas.demo.enums.Prioridade;
+import com.testeapi.vagas.demo.path.ApiPaths;
 import com.testeapi.vagas.demo.web.controllers.TodoController;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.TodoResponseDTO;
@@ -27,7 +28,7 @@ public class TodoTestIT {
     public void createTodoRetornarTodoCriadoComStatus201() {
         TodoResponseDTO responseBody = testClient
                 .post()
-                .uri(TodoController.TODO_URL)
+                .uri(ApiPaths.TODO_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new TodoCreateDTO("teste create", "12345678910", Prioridade.ALTA))
                 .exchange()
@@ -47,7 +48,7 @@ public class TodoTestIT {
     public void createTodoComNomeInvalidoRetornarStatus422() {
         ErrorMessage responseBody = testClient
                 .post()
-                .uri(TodoController.TODO_URL)
+                .uri(ApiPaths.TODO_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new TodoCreateDTO("", "12345678910", Prioridade.ALTA))
                 .exchange()
@@ -65,7 +66,7 @@ public class TodoTestIT {
     public void createTodoComSenhaInvalidaRetornarStatus422() {
         ErrorMessage responseBody = testClient
                 .post()
-                .uri(TodoController.TODO_URL)
+                .uri(ApiPaths.TODO_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new TodoCreateDTO("teste nome valido", "123", Prioridade.ALTA))
                 .exchange()
@@ -83,7 +84,7 @@ public class TodoTestIT {
     public void createTodoComSenhaVaziaInvalidaRetornarStatus422() {
         ErrorMessage responseBody = testClient
                 .post()
-                .uri(TodoController.TODO_URL)
+                .uri(ApiPaths.TODO_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new TodoCreateDTO("teste nome valido", "", Prioridade.ALTA))
                 .exchange()
@@ -101,7 +102,7 @@ public class TodoTestIT {
     public void buscarTodoComIdInvalidoRetornarStatus404() {
         ErrorMessage responseBody = testClient
                 .get()
-                .uri(TodoController.TODO_URL + '0')
+                .uri(ApiPaths.TODO_PATH + '0')
                 .exchange()
                 .expectStatus()
                 .isEqualTo(HttpStatus.NOT_FOUND)
