@@ -3,6 +3,10 @@ package com.testeapi.vagas.demo.web.controllers;
 import com.testeapi.vagas.demo.entities.User;
 import com.testeapi.vagas.demo.path.ApiPaths;
 import com.testeapi.vagas.demo.services.UserService;
+import com.testeapi.vagas.demo.web.dtos.UserCreateDTO;
+import com.testeapi.vagas.demo.web.dtos.UserResponseDTO;
+import com.testeapi.vagas.demo.web.dtos.UserUpdateDTO;
+import com.testeapi.vagas.demo.web.dtos.mapper.UserMapper;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,39 +26,38 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> list(Model model) {
+    public ResponseEntity<List<UserResponseDTO>> list() {
         List<User> users = service.getAllSortedByNameAsc();
-        model.addAttribute("users", users);
 
-        return ResponseEntity.status(HttpStatus.OK).body(users);
+        return ResponseEntity.status(HttpStatus.OK).body(UserMapper.toListDTO(users));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> show(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDTO> show(@PathVariable Long id) {
         User user = this.service.findById(id);
 
-        return ResponseEntity.status(HttpStatus.OK).body(user);
+        return ResponseEntity.status(HttpStatus.OK).body(UserMapper.toDTO(user));
     }
 
     @PostMapping
-    public ResponseEntity<User> store(@Valid @RequestBody User user) {
-        User userCreated = service.store(user);
+    public ResponseEntity<UserResponseDTO> store(@Valid @RequestBody UserCreateDTO userCreateDTO) {
+        User userCreated = service.store(userCreateDTO);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toDTO(userCreated));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<User> inativar(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDTO> inativar(@PathVariable Long id) {
         User user = service.inativar(id);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(UserMapper.toDTO(user));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @Valid @RequestBody User userUpdate) {
-       User user =  this.service.update(id, userUpdate);
+    public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO userUpdateDTO) {
+       User user =  this.service.update(id, userUpdateDTO);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(UserMapper.toDTO(user));
     }
 
     @DeleteMapping("/{id}")
