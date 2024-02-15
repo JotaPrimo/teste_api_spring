@@ -14,6 +14,10 @@ import java.time.LocalDateTime;
 @Table(name = "tb_users")
 @Getter @Setter @NoArgsConstructor @ToString
 public class User implements Serializable {
+
+    public static final boolean ATIVO = true;
+    public static final boolean INATIVO = false;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
