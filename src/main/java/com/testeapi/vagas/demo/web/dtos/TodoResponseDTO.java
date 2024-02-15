@@ -11,7 +11,6 @@ public class TodoResponseDTO {
     }
 
     public TodoResponseDTO(String nome, String descricao, String prioridade, boolean realizado) {
-
         this.nome = nome;
         this.descricao = descricao;
         this.prioridade = prioridade;
