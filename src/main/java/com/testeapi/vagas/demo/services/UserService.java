@@ -3,6 +3,9 @@ package com.testeapi.vagas.demo.services;
 import com.testeapi.vagas.demo.entities.User;
 import com.testeapi.vagas.demo.exceptions.EntityNotFoundException;
 import com.testeapi.vagas.demo.repositories.UserRepository;
+import com.testeapi.vagas.demo.web.dtos.UserCreateDTO;
+import com.testeapi.vagas.demo.web.dtos.UserUpdateDTO;
+import com.testeapi.vagas.demo.web.dtos.mapper.UserMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,8 +52,8 @@ public class UserService {
     }
 
     @Transactional
-    public User store(User user) {
-        return userRepository.save(user);
+    public User store(UserCreateDTO userCreateDTO) {
+        return userRepository.save(UserMapper.toModel(userCreateDTO));
     }
 
     @Transactional
@@ -60,12 +63,12 @@ public class UserService {
     }
 
     @Transactional
-    public User update(Long id, User userUpdate) {
+    public User update(Long id, UserUpdateDTO userUpdateDTO) {
         User user = this.findById(id);
 
-        user.setCpf(userUpdate.getCpf());
-        user.setName(userUpdate.getName());
-        user.setEmail(userUpdate.getEmail());
+        user.setCpf(userUpdateDTO.getCpf());
+        user.setName(userUpdateDTO.getName());
+        user.setEmail(userUpdateDTO.getEmail());
 
         return userRepository.save(user);
     }
