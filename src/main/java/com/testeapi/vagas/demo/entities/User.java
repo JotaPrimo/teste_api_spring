@@ -7,13 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_users")
 @Getter @Setter @NoArgsConstructor @ToString
-public class User implements Serializable {
+public class User  {
 
     public static final boolean ATIVO = true;
     public static final boolean INATIVO = false;
