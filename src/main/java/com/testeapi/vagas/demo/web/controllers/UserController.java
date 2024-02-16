@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -103,6 +104,23 @@ public class UserController {
         return ResponseEntity.ok(UserMapper.toDTO(user));
     }
 
+    @Operation(summary = "Atualizar registro de user", description = "Recurso para atualizar informações de user", responses = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "User atualizado com sucesso",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Registro não encontrado",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))
+            ),
+            @ApiResponse(
+                    responseCode = "422",
+                    description = "Recurso não processado por dados inválidos",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))
+            )
+    })
     @PutMapping("/{id}")
     public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO userUpdateDTO) {
         User user = this.service.update(id, userUpdateDTO);
@@ -110,6 +128,18 @@ public class UserController {
         return ResponseEntity.ok(UserMapper.toDTO(user));
     }
 
+    @Operation(summary = "Deletar registro de user", description = "Recurso para deletar registro de user", responses = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Registro deletado com sucesso",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Registro não encontrado",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))
+            ),
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
