@@ -3,17 +3,15 @@ package com.testeapi.vagas.demo.entities;
 import com.testeapi.vagas.demo.path.ApiPaths;
 import com.testeapi.vagas.demo.web.dtos.UserCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.UserResponseDTO;
+import com.testeapi.vagas.demo.web.exception.ErrorMessage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(scripts = "/sql/users/insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -70,7 +68,7 @@ class UserTest {
         UserCreateDTO userCreateDTO = new UserCreateDTO("", "169.916.460-67", "testedaswe@gmail.com");
 
         // action
-        UserResponseDTO responseBody = webTestClient
+        ErrorMessage responseBody = webTestClient
                 .post()
                 .uri(ApiPaths.USER_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -78,7 +76,7 @@ class UserTest {
                 .exchange()
                 .expectStatus()
                 .isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
-                .expectBody(UserResponseDTO.class)
+                .expectBody(ErrorMessage.class)
                 .returnResult()
                 .getResponseBody();
 
@@ -87,11 +85,7 @@ class UserTest {
                 .as("Corpo da resposta não deveria ser nullo")
                 .isNotNull();
 
-        Assertions
-                .assertThat(responseBody.getName())
-                .as("Id não deveria ser null")
-                .isNotNull()
-                .isEqualTo(userCreateDTO.getName());
+        Assertions.assertThat(responseBody.getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY.value());
     }
 
 }
