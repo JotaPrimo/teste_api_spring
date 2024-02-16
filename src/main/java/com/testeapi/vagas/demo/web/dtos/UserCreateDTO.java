@@ -14,12 +14,12 @@ public class UserCreateDTO {
     private String name;
 
     @NotBlank(message = "CPF é um campo obrigatório")
-    @Size(min = 14, max = 14, message = "Name deve ter entre 5 e 255 caracteres")
+    @Size(min = 14, max = 14, message = "CPF deve ter entre 5 e 255 caracteres")
     @ICPFValidator
     private String cpf;
 
     @NotBlank(message = "E-mail é um campo obrigatório")
-    @Size(min = 14, max = 14, message = "E-mail deve ter entre 5 e 255 caracteres")
+    @Size(min = 5, max = 255, message = "E-mail deve ter entre 5 e 255 caracteres")
     @Email(message = "E-mail inválido")
     private String email;
 }
