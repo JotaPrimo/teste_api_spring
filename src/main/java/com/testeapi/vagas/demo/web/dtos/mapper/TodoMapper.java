@@ -1,6 +1,8 @@
 package com.testeapi.vagas.demo.web.dtos.mapper;
 
 import com.testeapi.vagas.demo.entities.Todo;
+import com.testeapi.vagas.demo.entities.User;
+import com.testeapi.vagas.demo.services.UserService;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.TodoResponseDTO;
 import org.modelmapper.ModelMapper;
@@ -10,7 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TodoMapper {
-    public static Todo toModel(TodoCreateDTO dto) {
+
+    public static Todo toModel(TodoCreateDTO dto, User user) {
+        dto.setUser(user);
         return new ModelMapper().map(dto, Todo.class);
     }
 
