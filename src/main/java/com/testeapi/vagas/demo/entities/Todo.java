@@ -33,6 +33,10 @@ public class Todo {
     @Enumerated(EnumType.STRING)
     private Prioridade prioridade;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Todo() {
     }
 
@@ -78,6 +82,14 @@ public class Todo {
 
     public void setPrioridade(Prioridade prioridade) {
         this.prioridade = prioridade;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
