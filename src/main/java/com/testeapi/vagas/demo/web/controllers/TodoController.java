@@ -1,8 +1,10 @@
 package com.testeapi.vagas.demo.web.controllers;
 
 import com.testeapi.vagas.demo.entities.Todo;
+import com.testeapi.vagas.demo.entities.User;
 import com.testeapi.vagas.demo.path.ApiPaths;
 import com.testeapi.vagas.demo.services.TodoService;
+import com.testeapi.vagas.demo.services.UserService;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.TodoResponseDTO;
 import com.testeapi.vagas.demo.web.dtos.mapper.TodoMapper;
@@ -23,9 +25,11 @@ import java.util.List;
 @RequestMapping(ApiPaths.TODO_PATH)
 public class TodoController {
     private final TodoService todoService;
+    private final UserService userService;
 
-    public TodoController(TodoService todoService) {
+    public TodoController(TodoService todoService, UserService userService) {
         this.todoService = todoService;
+        this.userService = userService;
     }
 
     @Operation(summary = "Listar registros de todo's", description = "Recurso para listar registros de todo's",
@@ -56,7 +60,8 @@ public class TodoController {
             })
     @PostMapping
     public ResponseEntity<TodoResponseDTO> create(@Valid @RequestBody TodoCreateDTO todoCreate) {
-        Todo todoCreatead = todoService.create(todoCreate);
+        User user = userService.findById(todoCreate.getUser_id());
+        Todo todoCreatead = todoService.create(todoCreate, user);
         return ResponseEntity.status(HttpStatus.CREATED).body(TodoMapper.toDTO(todoCreatead));
     }
 
