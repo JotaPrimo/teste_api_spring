@@ -1,6 +1,7 @@
 package com.testeapi.vagas.demo.services;
 
 import com.testeapi.vagas.demo.entities.Todo;
+import com.testeapi.vagas.demo.entities.User;
 import com.testeapi.vagas.demo.exceptions.EntityNotFoundException;
 import com.testeapi.vagas.demo.exceptions.TodoAlreadyCompletedException;
 import com.testeapi.vagas.demo.repositories.TodoRepository;
@@ -21,9 +22,9 @@ public class TodoService {
     }
 
     @Transactional
-    public Todo create(TodoCreateDTO todoCreateDTO) {
+    public Todo create(TodoCreateDTO todoCreateDTO, User user) {
         try {
-            return repository.save(TodoMapper.toModel(todoCreateDTO));
+            return repository.save(TodoMapper.toModel(todoCreateDTO, user));
         } catch (RuntimeException exception) {
             throw new RuntimeException("Erro ao tentar salvar todo");
         }
