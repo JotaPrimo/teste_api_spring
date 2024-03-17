@@ -31,7 +31,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String email;
 
-    @Column(columnDefinition = "TINYINT DEFAULT 1")
+    @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private boolean ativo;
 
     private LocalDateTime created_at;
