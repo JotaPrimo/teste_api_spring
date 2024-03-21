@@ -4,7 +4,7 @@ import com.testeapi.vagas.demo.entities.Todo;
 import com.testeapi.vagas.demo.entities.User;
 import com.testeapi.vagas.demo.exceptions.EntityNotFoundException;
 import com.testeapi.vagas.demo.exceptions.TodoAlreadyCompletedException;
-import com.testeapi.vagas.demo.repositories.TodoRepository;
+import com.testeapi.vagas.demo.repositories.ITodoRepository;
 import com.testeapi.vagas.demo.web.services.interfaces.ITodoService;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.mapper.TodoMapper;
@@ -19,7 +19,7 @@ import java.util.List;
 public class TodoService implements ITodoService {
 
     @Autowired
-    private TodoRepository repository;
+    private ITodoRepository repository;
 
     @Transactional
     public Todo create(TodoCreateDTO todoCreateDTO, User user) {
