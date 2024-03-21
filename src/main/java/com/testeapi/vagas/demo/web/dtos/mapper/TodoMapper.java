@@ -17,10 +17,12 @@ public class TodoMapper {
 
     public static TodoResponseDTO toDTO(Todo todo) {
         String prioridade = todo.getPrioridade().name();
+        Long userId = todo.getUser().getId();
         PropertyMap<Todo, TodoResponseDTO> props = new PropertyMap<Todo, TodoResponseDTO>() {
             @Override
             protected void configure() {
                 map().setPrioridade(prioridade);
+                map().setUser_id(userId);
             }
         };
 
