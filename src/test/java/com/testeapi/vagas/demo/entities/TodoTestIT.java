@@ -1,7 +1,7 @@
 package com.testeapi.vagas.demo.entities;
 
 import com.testeapi.vagas.demo.enums.Prioridade;
-import com.testeapi.vagas.demo.path.ApiPaths;
+import com.testeapi.vagas.demo.config.path.ApiPaths;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.TodoResponseDTO;
 import com.testeapi.vagas.demo.web.exception.ErrorMessage;

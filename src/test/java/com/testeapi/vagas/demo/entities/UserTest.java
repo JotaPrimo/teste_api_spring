@@ -1,6 +1,6 @@
 package com.testeapi.vagas.demo.entities;
 
-import com.testeapi.vagas.demo.path.ApiPaths;
+import com.testeapi.vagas.demo.config.path.ApiPaths;
 import com.testeapi.vagas.demo.web.dtos.UserCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.UserResponseDTO;
 import com.testeapi.vagas.demo.web.exception.ErrorMessage;

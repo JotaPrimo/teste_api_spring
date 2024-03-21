@@ -2,18 +2,21 @@ package com.testeapi.vagas.demo.web.controllers;
 
 import com.testeapi.vagas.demo.entities.Todo;
 import com.testeapi.vagas.demo.entities.User;
-import com.testeapi.vagas.demo.path.ApiPaths;
-import com.testeapi.vagas.demo.services.TodoService;
-import com.testeapi.vagas.demo.services.UserService;
+import com.testeapi.vagas.demo.config.path.ApiPaths;
+import com.testeapi.vagas.demo.web.services.implementation.TodoService;
+import com.testeapi.vagas.demo.web.services.implementation.UserService;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.TodoResponseDTO;
 import com.testeapi.vagas.demo.web.dtos.mapper.TodoMapper;
+import com.testeapi.vagas.demo.web.services.interfaces.ITodoService;
+import com.testeapi.vagas.demo.web.services.interfaces.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +27,12 @@ import java.util.List;
 @RestController
 @RequestMapping(ApiPaths.TODO_PATH)
 public class TodoController {
-    private final TodoService todoService;
-    private final UserService userService;
 
-    public TodoController(TodoService todoService, UserService userService) {
-        this.todoService = todoService;
-        this.userService = userService;
-    }
+    @Autowired
+    private ITodoService todoService;
+
+    @Autowired
+    private IUserService userService;
 
     @Operation(summary = "Listar registros de todo's", description = "Recurso para listar registros de todo's",
             responses = {

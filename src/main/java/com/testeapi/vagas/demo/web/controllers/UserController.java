@@ -1,19 +1,17 @@
 package com.testeapi.vagas.demo.web.controllers;
 
 import com.testeapi.vagas.demo.entities.User;
-import com.testeapi.vagas.demo.path.ApiPaths;
-import com.testeapi.vagas.demo.services.UserService;
+import com.testeapi.vagas.demo.config.path.ApiPaths;
+import com.testeapi.vagas.demo.web.services.implementation.UserService;
 import com.testeapi.vagas.demo.web.dtos.*;
 import com.testeapi.vagas.demo.web.dtos.mapper.UserMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

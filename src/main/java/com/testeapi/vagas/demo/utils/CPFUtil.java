@@ -1,6 +1,6 @@
-package com.testeapi.vagas.demo.services;
+package com.testeapi.vagas.demo.utils;
 
-public class CPFService {
+public class CPFUtil {
     public static boolean isValid(String cpf) {
         // Remove caracteres não numéricos
         cpf = cpf.replaceAll("[^0-9]", "");

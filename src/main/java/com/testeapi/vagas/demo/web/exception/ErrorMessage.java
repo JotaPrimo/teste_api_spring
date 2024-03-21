@@ -1,7 +1,7 @@
 package com.testeapi.vagas.demo.web.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.testeapi.vagas.demo.services.DataService;
+import com.testeapi.vagas.demo.utils.DataUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -44,7 +44,7 @@ public class ErrorMessage {
         this.statusText = status.getReasonPhrase();
         this.title = title;
         this.message = message;
-        this.when = DataService.getDataAtualDMYHMS();
+        this.when = DataUtil.getDataAtualDMYHMS();
     }
 
     public ErrorMessage(HttpServletRequest request, HttpStatus status, String title, String message, BindingResult result) {
@@ -54,7 +54,7 @@ public class ErrorMessage {
         this.statusText = status.getReasonPhrase();
         this.message = message;
         this.title = title;
-        this.when = DataService.getDataAtualDMYHMS();
+        this.when = DataUtil.getDataAtualDMYHMS();
         addErrors(result);
     }
 
