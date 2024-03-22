@@ -1,9 +1,9 @@
-package com.testeapi.vagas.demo.web.services.implementation;
+package com.testeapi.vagas.demo.domain.services.implementation;
 
-import com.testeapi.vagas.demo.entities.User;
-import com.testeapi.vagas.demo.exceptions.EntityNotFoundException;
-import com.testeapi.vagas.demo.repositories.IUserRepository;
-import com.testeapi.vagas.demo.web.services.interfaces.IUserService;
+import com.testeapi.vagas.demo.domain.entities.User;
+import com.testeapi.vagas.demo.domain.exceptions.EntityNotFoundException;
+import com.testeapi.vagas.demo.domain.repositories.IUserRepository;
+import com.testeapi.vagas.demo.domain.services.interfaces.IUserService;
 import com.testeapi.vagas.demo.web.dtos.UserCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.UserUpdateDTO;
 import com.testeapi.vagas.demo.web.dtos.mapper.UserMapper;

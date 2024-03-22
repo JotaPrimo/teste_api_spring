@@ -1,7 +1,7 @@
 package com.testeapi.vagas.demo.web.exception;
 
-import com.testeapi.vagas.demo.exceptions.EntityNotFoundException;
-import com.testeapi.vagas.demo.exceptions.TodoAlreadyCompletedException;
+import com.testeapi.vagas.demo.domain.exceptions.EntityNotFoundException;
+import com.testeapi.vagas.demo.domain.exceptions.TodoAlreadyCompletedException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

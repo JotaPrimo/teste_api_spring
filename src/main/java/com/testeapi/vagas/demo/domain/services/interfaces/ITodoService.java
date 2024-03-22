@@ -1,7 +1,7 @@
-package com.testeapi.vagas.demo.web.services.interfaces;
+package com.testeapi.vagas.demo.domain.services.interfaces;
 
-import com.testeapi.vagas.demo.entities.Todo;
-import com.testeapi.vagas.demo.entities.User;
+import com.testeapi.vagas.demo.domain.entities.Todo;
+import com.testeapi.vagas.demo.domain.entities.User;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 
 import java.util.List;

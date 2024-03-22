@@ -1,8 +1,8 @@
 package com.testeapi.vagas.demo.web.controllers;
 
-import com.testeapi.vagas.demo.entities.User;
+import com.testeapi.vagas.demo.domain.entities.User;
 import com.testeapi.vagas.demo.config.path.ApiPaths;
-import com.testeapi.vagas.demo.web.services.implementation.UserService;
+import com.testeapi.vagas.demo.domain.services.implementation.UserService;
 import com.testeapi.vagas.demo.web.dtos.*;
 import com.testeapi.vagas.demo.web.dtos.mapper.UserMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -52,7 +52,7 @@ public class UserController {
                             )),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Recurso não encontrado",
+                            description = "Recurso nï¿½o encontrado",
                             content = @Content(mediaType = "application/json")
                     )
             })
@@ -72,7 +72,7 @@ public class UserController {
                                     schema = @Schema(implementation = UserCreateDTO.class))),
                     @ApiResponse(
                             responseCode = "422",
-                            description = "Recurso não processado por dados inválidos",
+                            description = "Recurso nï¿½o processado por dados invï¿½lidos",
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = UserCreateDTO.class)))
             })
@@ -91,7 +91,7 @@ public class UserController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Recurso não encontrado",
+                    description = "Recurso nï¿½o encontrado",
                     content = @Content(mediaType = "application/json")
             )
     })
@@ -102,7 +102,7 @@ public class UserController {
         return ResponseEntity.ok(UserMapper.toDTO(user));
     }
 
-    @Operation(summary = "Atualizar registro de user", description = "Recurso para atualizar informações de user", responses = {
+    @Operation(summary = "Atualizar registro de user", description = "Recurso para atualizar informaï¿½ï¿½es de user", responses = {
             @ApiResponse(
                     responseCode = "200",
                     description = "User atualizado com sucesso",
@@ -110,12 +110,12 @@ public class UserController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Registro não encontrado",
+                    description = "Registro nï¿½o encontrado",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))
             ),
             @ApiResponse(
                     responseCode = "422",
-                    description = "Recurso não processado por dados inválidos",
+                    description = "Recurso nï¿½o processado por dados invï¿½lidos",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))
             )
     })
@@ -134,7 +134,7 @@ public class UserController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Registro não encontrado",
+                    description = "Registro nï¿½o encontrado",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))
             ),
     })

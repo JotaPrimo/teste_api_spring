@@ -1,7 +1,7 @@
 package com.testeapi.vagas.demo.web.dtos;
 
-import com.testeapi.vagas.demo.entities.User;
-import com.testeapi.vagas.demo.enums.Prioridade;
+import com.testeapi.vagas.demo.domain.entities.User;
+import com.testeapi.vagas.demo.domain.enums.Prioridade;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

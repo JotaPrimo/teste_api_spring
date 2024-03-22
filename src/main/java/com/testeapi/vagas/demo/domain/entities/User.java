@@ -1,4 +1,4 @@
-package com.testeapi.vagas.demo.entities;
+package com.testeapi.vagas.demo.domain.entities;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -8,7 +8,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity

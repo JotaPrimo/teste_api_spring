@@ -1,15 +1,13 @@
 package com.testeapi.vagas.demo.web.controllers;
 
-import com.testeapi.vagas.demo.entities.Todo;
-import com.testeapi.vagas.demo.entities.User;
+import com.testeapi.vagas.demo.domain.entities.Todo;
+import com.testeapi.vagas.demo.domain.entities.User;
 import com.testeapi.vagas.demo.config.path.ApiPaths;
-import com.testeapi.vagas.demo.web.services.implementation.TodoService;
-import com.testeapi.vagas.demo.web.services.implementation.UserService;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.TodoResponseDTO;
 import com.testeapi.vagas.demo.web.dtos.mapper.TodoMapper;
-import com.testeapi.vagas.demo.web.services.interfaces.ITodoService;
-import com.testeapi.vagas.demo.web.services.interfaces.IUserService;
+import com.testeapi.vagas.demo.domain.services.interfaces.ITodoService;
+import com.testeapi.vagas.demo.domain.services.interfaces.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

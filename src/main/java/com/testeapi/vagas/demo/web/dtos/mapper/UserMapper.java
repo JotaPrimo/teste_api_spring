@@ -1,6 +1,6 @@
 package com.testeapi.vagas.demo.web.dtos.mapper;
 
-import com.testeapi.vagas.demo.entities.User;
+import com.testeapi.vagas.demo.domain.entities.User;
 import com.testeapi.vagas.demo.web.dtos.UserCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.UserResponseDTO;
 import org.modelmapper.ModelMapper;

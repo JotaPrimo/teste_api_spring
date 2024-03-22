@@ -1,6 +1,6 @@
 package com.testeapi.vagas.demo.utils;
 
-import com.testeapi.vagas.demo.exceptions.ClassNotIsJpaEntity;
+import com.testeapi.vagas.demo.domain.exceptions.ClassNotIsJpaEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

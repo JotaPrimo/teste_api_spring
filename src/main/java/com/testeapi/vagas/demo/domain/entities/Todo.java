@@ -1,6 +1,6 @@
-package com.testeapi.vagas.demo.entities;
+package com.testeapi.vagas.demo.domain.entities;
 
-import com.testeapi.vagas.demo.enums.Prioridade;
+import com.testeapi.vagas.demo.domain.enums.Prioridade;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
