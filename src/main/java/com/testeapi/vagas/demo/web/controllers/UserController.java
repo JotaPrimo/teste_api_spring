@@ -3,10 +3,9 @@ package com.testeapi.vagas.demo.web.controllers;
 import com.testeapi.vagas.demo.domain.entities.User;
 import com.testeapi.vagas.demo.config.ApiPaths;
 import com.testeapi.vagas.demo.domain.services.implementation.UserService;
-import com.testeapi.vagas.demo.web.dtos.*;
-import com.testeapi.vagas.demo.web.dtos.mapper.UserMapper;
-import com.testeapi.vagas.demo.web.records.user.UserCreateRequest;
-import com.testeapi.vagas.demo.web.records.user.UsuarioResponse;
+import com.testeapi.vagas.demo.web.records.user.UserCreateDTO;
+import com.testeapi.vagas.demo.web.records.user.UserResponseDTO;
+import com.testeapi.vagas.demo.web.records.user.UserUpdateDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,10 +37,10 @@ public class UserController {
             }
     )
     @GetMapping
-    public ResponseEntity<List<UsuarioResponse>> list() {
+    public ResponseEntity<List<UserResponseDTO>> list() {
         List<User> users = service.getAllSortedByNameAsc();
 
-        return ResponseEntity.status(HttpStatus.OK).body(UsuarioResponse.toListUsers(users));
+        return ResponseEntity.status(HttpStatus.OK).body(UserResponseDTO.toListUsers(users));
     }
 
     @Operation(summary = "Localizar user", description = "Recurso para localizar user pelo id",
@@ -62,7 +61,7 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> show(@PathVariable Long id) {
         User user = this.service.findById(id);
 
-        return ResponseEntity.status(HttpStatus.OK).body(UserMapper.toDTO(user));
+        return ResponseEntity.status(HttpStatus.OK).body(UserResponseDTO.userToResponseDto(user));
     }
 
     @Operation(summary = "Ciar user", description = "Recurso para criar users",
@@ -79,8 +78,8 @@ public class UserController {
                                     schema = @Schema(implementation = UserCreateDTO.class)))
             })
     @PostMapping
-    public ResponseEntity<UsuarioResponse> store(@Valid @RequestBody UserCreateRequest userCreateRequest) {
-        UsuarioResponse userCreated = service.store(userCreateRequest);
+    public ResponseEntity<UserResponseDTO> store(@Valid @RequestBody UserCreateDTO userCreateRequest) {
+        UserResponseDTO userCreated = service.store(userCreateRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
     }
 
@@ -100,7 +99,7 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> inativar(@PathVariable Long id) {
         User user = service.inativar(id);
 
-        return ResponseEntity.ok(UserMapper.toDTO(user));
+        return ResponseEntity.ok(UserResponseDTO.userToResponseDto(user));
     }
 
     @Operation(summary = "Atualizar registro de user", description = "Recurso para atualizar informa��es de user", responses = {
@@ -124,7 +123,7 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO userUpdateDTO) {
         User user = this.service.update(id, userUpdateDTO);
 
-        return ResponseEntity.ok(UserMapper.toDTO(user));
+        return ResponseEntity.ok(UserResponseDTO.userToResponseDto(user));
     }
 
     @Operation(summary = "Deletar registro de user", description = "Recurso para deletar registro de user", responses = {

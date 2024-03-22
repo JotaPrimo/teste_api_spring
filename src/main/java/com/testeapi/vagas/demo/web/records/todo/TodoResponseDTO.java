@@ -1,8 +1,6 @@
 package com.testeapi.vagas.demo.web.records.todo;
 
 import com.testeapi.vagas.demo.domain.entities.Todo;
-import com.testeapi.vagas.demo.domain.entities.User;
-import com.testeapi.vagas.demo.web.records.user.UsuarioResponse;
 
 import java.util.List;
 

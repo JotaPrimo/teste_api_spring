@@ -1,9 +1,9 @@
 package com.testeapi.vagas.demo.entities;
 
 import com.testeapi.vagas.demo.config.ApiPaths;
-import com.testeapi.vagas.demo.web.dtos.UserCreateDTO;
-import com.testeapi.vagas.demo.web.dtos.UserResponseDTO;
 import com.testeapi.vagas.demo.web.exception.ErrorMessage;
+import com.testeapi.vagas.demo.web.records.user.UserCreateDTO;
+import com.testeapi.vagas.demo.web.records.user.UserResponseDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,18 +45,18 @@ class UserTest {
                 .overridingErrorMessage("Response body n�o deveria ser nullo")
                 .isNotNull();
 
-        Assertions.assertThat(responseBody.getName())
+        Assertions.assertThat(responseBody.name())
                 .as("O name deve ser igual")
                 .isNotNull()
                 .overridingErrorMessage("Name n�o deveria ser null")
-                .isEqualTo(userCreateDTO.getName());
+                .isEqualTo(userCreateDTO.name());
 
-        Assertions.assertThat(responseBody.getCpf())
+        Assertions.assertThat(responseBody.cpf())
                 .as("CPF deve ser igual")
                 .overridingErrorMessage("CPF n�o deveria ser null")
-                .isEqualTo(userCreateDTO.getCpf());
+                .isEqualTo(userCreateDTO.cpf());
 
-        Assertions.assertThat(responseBody.getEmail())
+        Assertions.assertThat(responseBody.email())
                 .as("E-mail deve ser igual a")
                 .overridingErrorMessage("E-mail n�o deveria ser null")
                 .isEqualTo("jtoeasdasdal�k�ldasd");

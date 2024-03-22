@@ -2,7 +2,7 @@ package com.testeapi.vagas.demo.web.records.user;
 
 import com.testeapi.vagas.demo.domain.entities.User;
 
-public record UserCreateRequest(
+public record UserCreateDTO(
         String name,
         String cpf,
         String email

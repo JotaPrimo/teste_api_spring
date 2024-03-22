@@ -4,9 +4,9 @@ import com.testeapi.vagas.demo.domain.entities.User;
 import com.testeapi.vagas.demo.domain.exceptions.EntityNotFoundException;
 import com.testeapi.vagas.demo.domain.repositories.jpa.IUserRepository;
 import com.testeapi.vagas.demo.domain.services.interfaces.IUserService;
-import com.testeapi.vagas.demo.web.dtos.UserUpdateDTO;
-import com.testeapi.vagas.demo.web.records.user.UserCreateRequest;
-import com.testeapi.vagas.demo.web.records.user.UsuarioResponse;
+import com.testeapi.vagas.demo.web.records.user.UserCreateDTO;
+import com.testeapi.vagas.demo.web.records.user.UserResponseDTO;
+import com.testeapi.vagas.demo.web.records.user.UserUpdateDTO;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +53,7 @@ public class UserService implements IUserService {
     }
 
     @Transactional
-    public UsuarioResponse store(UserCreateRequest userCreateRequest) {
+    public UserResponseDTO store(UserCreateDTO userCreateRequest) {
         // criando entity de user a partir de dto
         User user = userCreateRequest.toEntity();
 
@@ -61,7 +61,7 @@ public class UserService implements IUserService {
         userRepository.save(user);
 
         // retornando response
-        return UsuarioResponse.userToResponseDto(user);
+        return UserResponseDTO.userToResponseDto(user);
     }
 
     @Transactional
@@ -74,9 +74,9 @@ public class UserService implements IUserService {
     public User update(Long id, UserUpdateDTO userUpdateDTO) {
         User user = this.findById(id);
 
-        user.setCpf(userUpdateDTO.getCpf());
-        user.setName(userUpdateDTO.getName());
-        user.setEmail(userUpdateDTO.getEmail());
+        user.setCpf(userUpdateDTO.cpf());
+        user.setName(userUpdateDTO.name());
+        user.setEmail(userUpdateDTO.email());
 
         return userRepository.save(user);
     }
