@@ -1,4 +1,4 @@
-package com.testeapi.vagas.demo.domain.repositories;
+package com.testeapi.vagas.demo.domain.repositories.jpa;
 
 import com.testeapi.vagas.demo.domain.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;

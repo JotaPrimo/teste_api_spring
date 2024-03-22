@@ -1,6 +1,6 @@
 package com.testeapi.vagas.demo.entities;
 
-import com.testeapi.vagas.demo.config.path.ApiPaths;
+import com.testeapi.vagas.demo.config.ApiPaths;
 import com.testeapi.vagas.demo.web.dtos.UserCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.UserResponseDTO;
 import com.testeapi.vagas.demo.web.exception.ErrorMessage;
@@ -42,24 +42,24 @@ class UserTest {
         // assertion
         Assertions.assertThat(responseBody)
                 .as("Response body should not be null")
-                .overridingErrorMessage("Response body não deveria ser nullo")
+                .overridingErrorMessage("Response body nï¿½o deveria ser nullo")
                 .isNotNull();
 
         Assertions.assertThat(responseBody.getName())
                 .as("O name deve ser igual")
                 .isNotNull()
-                .overridingErrorMessage("Name não deveria ser null")
+                .overridingErrorMessage("Name nï¿½o deveria ser null")
                 .isEqualTo(userCreateDTO.getName());
 
         Assertions.assertThat(responseBody.getCpf())
                 .as("CPF deve ser igual")
-                .overridingErrorMessage("CPF não deveria ser null")
+                .overridingErrorMessage("CPF nï¿½o deveria ser null")
                 .isEqualTo(userCreateDTO.getCpf());
 
         Assertions.assertThat(responseBody.getEmail())
                 .as("E-mail deve ser igual a")
-                .overridingErrorMessage("E-mail não deveria ser null")
-                .isEqualTo("jtoeasdasdalçkçldasd");
+                .overridingErrorMessage("E-mail nï¿½o deveria ser null")
+                .isEqualTo("jtoeasdasdalï¿½kï¿½ldasd");
     }
 
     @Test
@@ -82,7 +82,7 @@ class UserTest {
 
         // Assertion
         Assertions.assertThat(responseBody)
-                .as("Corpo da resposta não deveria ser nullo")
+                .as("Corpo da resposta nï¿½o deveria ser nullo")
                 .isNotNull();
 
         Assertions.assertThat(responseBody.getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY.value());

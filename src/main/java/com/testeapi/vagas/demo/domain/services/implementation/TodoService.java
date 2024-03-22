@@ -4,7 +4,7 @@ import com.testeapi.vagas.demo.domain.entities.Todo;
 import com.testeapi.vagas.demo.domain.entities.User;
 import com.testeapi.vagas.demo.domain.exceptions.EntityNotFoundException;
 import com.testeapi.vagas.demo.domain.exceptions.TodoAlreadyCompletedException;
-import com.testeapi.vagas.demo.domain.repositories.ITodoRepository;
+import com.testeapi.vagas.demo.domain.repositories.jpa.ITodoRepository;
 import com.testeapi.vagas.demo.domain.services.interfaces.ITodoService;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.mapper.TodoMapper;

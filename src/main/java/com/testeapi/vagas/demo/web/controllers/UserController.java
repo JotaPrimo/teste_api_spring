@@ -1,7 +1,7 @@
 package com.testeapi.vagas.demo.web.controllers;
 
 import com.testeapi.vagas.demo.domain.entities.User;
-import com.testeapi.vagas.demo.config.path.ApiPaths;
+import com.testeapi.vagas.demo.config.ApiPaths;
 import com.testeapi.vagas.demo.domain.services.implementation.UserService;
 import com.testeapi.vagas.demo.web.dtos.*;
 import com.testeapi.vagas.demo.web.dtos.mapper.UserMapper;
