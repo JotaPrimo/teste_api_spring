@@ -5,6 +5,8 @@ import com.testeapi.vagas.demo.config.ApiPaths;
 import com.testeapi.vagas.demo.domain.services.implementation.UserService;
 import com.testeapi.vagas.demo.web.dtos.*;
 import com.testeapi.vagas.demo.web.dtos.mapper.UserMapper;
+import com.testeapi.vagas.demo.web.records.user.UserCreateRequest;
+import com.testeapi.vagas.demo.web.records.user.UsuarioResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -36,10 +38,10 @@ public class UserController {
             }
     )
     @GetMapping
-    public ResponseEntity<List<UserResponseDTO>> list() {
+    public ResponseEntity<List<UsuarioResponse>> list() {
         List<User> users = service.getAllSortedByNameAsc();
 
-        return ResponseEntity.status(HttpStatus.OK).body(UserMapper.toListDTO(users));
+        return ResponseEntity.status(HttpStatus.OK).body(UsuarioResponse.toListUsers(users));
     }
 
     @Operation(summary = "Localizar user", description = "Recurso para localizar user pelo id",
@@ -77,10 +79,9 @@ public class UserController {
                                     schema = @Schema(implementation = UserCreateDTO.class)))
             })
     @PostMapping
-    public ResponseEntity<UserResponseDTO> store(@Valid @RequestBody UserCreateDTO userCreateDTO) {
-        User userCreated = service.store(userCreateDTO);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toDTO(userCreated));
+    public ResponseEntity<UsuarioResponse> store(@Valid @RequestBody UserCreateRequest userCreateRequest) {
+        UsuarioResponse userCreated = service.store(userCreateRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
     }
 
     @Operation(summary = "Inativar user", description = "Recurso para inativar user", responses = {

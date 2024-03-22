@@ -6,8 +6,9 @@ import com.testeapi.vagas.demo.domain.exceptions.EntityNotFoundException;
 import com.testeapi.vagas.demo.domain.exceptions.TodoAlreadyCompletedException;
 import com.testeapi.vagas.demo.domain.repositories.jpa.ITodoRepository;
 import com.testeapi.vagas.demo.domain.services.interfaces.ITodoService;
-import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.mapper.TodoMapper;
+import com.testeapi.vagas.demo.web.records.todo.TodoCreateDTO;
+import com.testeapi.vagas.demo.web.records.todo.TodoResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -22,11 +23,12 @@ public class TodoService implements ITodoService {
     private ITodoRepository repository;
 
     @Transactional
-    public Todo create(TodoCreateDTO todoCreateDTO, User user) {
+    public TodoResponseDTO create(TodoCreateDTO todoCreateDTO, User user) {
         try {
-            Todo todo = TodoMapper.toModel(todoCreateDTO);
-            todo.setUser(user);
-            return repository.save(todo);
+            Todo todo = todoCreateDTO.toEntity(user);
+            repository.save(todo);
+
+            return TodoResponseDTO.todoToResponseDto(todo);
         } catch (RuntimeException exception) {
             throw new RuntimeException("Erro ao tentar salvar todo");
         }

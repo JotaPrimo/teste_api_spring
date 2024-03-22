@@ -4,9 +4,9 @@ import com.testeapi.vagas.demo.domain.entities.User;
 import com.testeapi.vagas.demo.domain.exceptions.EntityNotFoundException;
 import com.testeapi.vagas.demo.domain.repositories.jpa.IUserRepository;
 import com.testeapi.vagas.demo.domain.services.interfaces.IUserService;
-import com.testeapi.vagas.demo.web.dtos.UserCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.UserUpdateDTO;
-import com.testeapi.vagas.demo.web.dtos.mapper.UserMapper;
+import com.testeapi.vagas.demo.web.records.user.UserCreateRequest;
+import com.testeapi.vagas.demo.web.records.user.UsuarioResponse;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,8 +53,15 @@ public class UserService implements IUserService {
     }
 
     @Transactional
-    public User store(UserCreateDTO userCreateDTO) {
-        return userRepository.save(UserMapper.toModel(userCreateDTO));
+    public UsuarioResponse store(UserCreateRequest userCreateRequest) {
+        // criando entity de user a partir de dto
+        User user = userCreateRequest.toEntity();
+
+        // salvando no banco
+        userRepository.save(user);
+
+        // retornando response
+        return UsuarioResponse.userToResponseDto(user);
     }
 
     @Transactional

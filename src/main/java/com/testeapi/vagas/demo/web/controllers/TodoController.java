@@ -3,11 +3,11 @@ package com.testeapi.vagas.demo.web.controllers;
 import com.testeapi.vagas.demo.domain.entities.Todo;
 import com.testeapi.vagas.demo.domain.entities.User;
 import com.testeapi.vagas.demo.config.ApiPaths;
-import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
-import com.testeapi.vagas.demo.web.dtos.TodoResponseDTO;
 import com.testeapi.vagas.demo.web.dtos.mapper.TodoMapper;
 import com.testeapi.vagas.demo.domain.services.interfaces.ITodoService;
 import com.testeapi.vagas.demo.domain.services.interfaces.IUserService;
+import com.testeapi.vagas.demo.web.records.todo.TodoCreateDTO;
+import com.testeapi.vagas.demo.web.records.todo.TodoResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -42,7 +42,7 @@ public class TodoController {
     @GetMapping
     public ResponseEntity<List<TodoResponseDTO>> list() {
         List<Todo> todos = todoService.list();
-        return ResponseEntity.status(HttpStatus.OK).body(TodoMapper.toListDTO(todos));
+        return ResponseEntity.status(HttpStatus.OK).body(TodoResponseDTO.toListResponse(todos));
     }
 
     @Operation(summary = "Ciar todo's", description = "Recurso para criar todo's",
@@ -60,9 +60,9 @@ public class TodoController {
             })
     @PostMapping
     public ResponseEntity<TodoResponseDTO> create(@Valid @RequestBody TodoCreateDTO todoCreate) {
-        User user = userService.findById(todoCreate.getUser_id());
-        Todo todoCreatead = todoService.create(todoCreate, user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(TodoMapper.toDTO(todoCreatead));
+        User user = userService.findById(todoCreate.user_id());
+        TodoResponseDTO todoCreatead = todoService.create(todoCreate, user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(todoCreatead);
     }
 
     @Operation(summary = "Localizar todo", description = "Recurso para localizar todo pelo id",
@@ -82,7 +82,7 @@ public class TodoController {
     @GetMapping("/{id}")
     public ResponseEntity<TodoResponseDTO> findById(@PathVariable Long id) {
         Todo todo = todoService.findById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(TodoMapper.toDTO(todo));
+        return ResponseEntity.status(HttpStatus.OK).body(TodoResponseDTO.todoToResponseDto(todo));
     }
 
     @Operation(summary = "Deletar todo", description = "Recurso para deletar todo", responses = {
@@ -118,7 +118,7 @@ public class TodoController {
     @PatchMapping("/{id}/completed")
     public ResponseEntity<TodoResponseDTO> complete(@PathVariable Long id) {
         Todo todoCompleted = todoService.complete(id);
-        return ResponseEntity.status(HttpStatus.OK).body(TodoMapper.toDTO(todoCompleted));
+        return ResponseEntity.status(HttpStatus.OK).body(TodoResponseDTO.todoToResponseDto(todoCompleted));
     }
 
 }
