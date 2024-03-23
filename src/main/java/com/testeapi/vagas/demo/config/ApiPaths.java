@@ -1,4 +1,4 @@
-package com.testeapi.vagas.demo.path;
+package com.testeapi.vagas.demo.config;
 
 public class ApiPaths {
     public static final String TODO_PATH = "/api/v1/todos";

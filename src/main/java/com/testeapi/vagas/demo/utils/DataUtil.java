@@ -1,9 +1,9 @@
-package com.testeapi.vagas.demo.services;
+package com.testeapi.vagas.demo.utils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class DataService {
+public class DataUtil {
     public static String getDataAtualDMYHMS() {
         LocalDateTime now = LocalDateTime.now();
 

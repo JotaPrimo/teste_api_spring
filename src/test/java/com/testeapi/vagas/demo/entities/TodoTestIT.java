@@ -1,19 +1,17 @@
 package com.testeapi.vagas.demo.entities;
 
-import com.testeapi.vagas.demo.enums.Prioridade;
-import com.testeapi.vagas.demo.path.ApiPaths;
-import com.testeapi.vagas.demo.web.controllers.TodoController;
+import com.testeapi.vagas.demo.domain.enums.Prioridade;
+import com.testeapi.vagas.demo.config.ApiPaths;
 import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.dtos.TodoResponseDTO;
 import com.testeapi.vagas.demo.web.exception.ErrorMessage;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // tomcant do teste ser? executado em porta randomica
@@ -30,7 +28,7 @@ public class TodoTestIT {
                 .post()
                 .uri(ApiPaths.TODO_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(new TodoCreateDTO("teste create", "12345678910", Prioridade.ALTA))
+                .bodyValue(new TodoCreateDTO("teste create", "12345678910", Prioridade.ALTA, 1L))
                 .exchange()
                 .expectStatus()
                 .isCreated()
@@ -50,7 +48,7 @@ public class TodoTestIT {
                 .post()
                 .uri(ApiPaths.TODO_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(new TodoCreateDTO("", "12345678910", Prioridade.ALTA))
+                .bodyValue(new TodoCreateDTO("", "12345678910", Prioridade.ALTA, 1L))
                 .exchange()
                 .expectStatus()
                 .isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -68,7 +66,7 @@ public class TodoTestIT {
                 .post()
                 .uri(ApiPaths.TODO_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(new TodoCreateDTO("teste nome valido", "123", Prioridade.ALTA))
+                .bodyValue(new TodoCreateDTO("teste nome valido", "123", Prioridade.ALTA, 1L))
                 .exchange()
                 .expectStatus()
                 .isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -86,7 +84,7 @@ public class TodoTestIT {
                 .post()
                 .uri(ApiPaths.TODO_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(new TodoCreateDTO("teste nome valido", "", Prioridade.ALTA))
+                .bodyValue(new TodoCreateDTO("teste nome valido", "", Prioridade.ALTA, 1L))
                 .exchange()
                 .expectStatus()
                 .isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)

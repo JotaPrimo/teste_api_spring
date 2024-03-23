@@ -1,6 +1,6 @@
-package com.testeapi.vagas.demo.entities;
+package com.testeapi.vagas.demo.domain.entities;
 
-import com.testeapi.vagas.demo.enums.Prioridade;
+import com.testeapi.vagas.demo.domain.enums.Prioridade;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -32,6 +32,10 @@ public class Todo {
 
     @Enumerated(EnumType.STRING)
     private Prioridade prioridade;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Todo() {
     }
@@ -78,6 +82,14 @@ public class Todo {
 
     public void setPrioridade(Prioridade prioridade) {
         this.prioridade = prioridade;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

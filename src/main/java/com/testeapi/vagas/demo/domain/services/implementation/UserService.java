@@ -1,8 +1,12 @@
-package com.testeapi.vagas.demo.services;
+package com.testeapi.vagas.demo.domain.services.implementation;
 
-import com.testeapi.vagas.demo.entities.User;
-import com.testeapi.vagas.demo.exceptions.EntityNotFoundException;
-import com.testeapi.vagas.demo.repositories.UserRepository;
+import com.testeapi.vagas.demo.domain.entities.User;
+import com.testeapi.vagas.demo.domain.exceptions.EntityNotFoundException;
+import com.testeapi.vagas.demo.domain.repositories.jpa.IUserRepository;
+import com.testeapi.vagas.demo.domain.services.interfaces.IUserService;
+import com.testeapi.vagas.demo.web.records.user.UserCreateDTO;
+import com.testeapi.vagas.demo.web.records.user.UserResponseDTO;
+import com.testeapi.vagas.demo.web.records.user.UserUpdateDTO;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserService {
-    private final UserRepository userRepository;
+public class UserService implements IUserService {
+    private final IUserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -49,8 +53,15 @@ public class UserService {
     }
 
     @Transactional
-    public User store(User user) {
-        return userRepository.save(user);
+    public UserResponseDTO store(UserCreateDTO userCreateRequest) {
+        // criando entity de user a partir de dto
+        User user = userCreateRequest.toEntity();
+
+        // salvando no banco
+        userRepository.save(user);
+
+        // retornando response
+        return UserResponseDTO.userToResponseDto(user);
     }
 
     @Transactional
@@ -60,12 +71,12 @@ public class UserService {
     }
 
     @Transactional
-    public User update(Long id, User userUpdate) {
+    public User update(Long id, UserUpdateDTO userUpdateDTO) {
         User user = this.findById(id);
 
-        user.setCpf(userUpdate.getCpf());
-        user.setName(userUpdate.getName());
-        user.setEmail(userUpdate.getEmail());
+        user.setCpf(userUpdateDTO.cpf());
+        user.setName(userUpdateDTO.name());
+        user.setEmail(userUpdateDTO.email());
 
         return userRepository.save(user);
     }

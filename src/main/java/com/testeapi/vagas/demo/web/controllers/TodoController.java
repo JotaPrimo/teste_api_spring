@@ -1,17 +1,20 @@
 package com.testeapi.vagas.demo.web.controllers;
 
-import com.testeapi.vagas.demo.entities.Todo;
-import com.testeapi.vagas.demo.path.ApiPaths;
-import com.testeapi.vagas.demo.services.TodoService;
-import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
-import com.testeapi.vagas.demo.web.dtos.TodoResponseDTO;
+import com.testeapi.vagas.demo.domain.entities.Todo;
+import com.testeapi.vagas.demo.domain.entities.User;
+import com.testeapi.vagas.demo.config.ApiPaths;
 import com.testeapi.vagas.demo.web.dtos.mapper.TodoMapper;
+import com.testeapi.vagas.demo.domain.services.interfaces.ITodoService;
+import com.testeapi.vagas.demo.domain.services.interfaces.IUserService;
+import com.testeapi.vagas.demo.web.records.todo.TodoCreateDTO;
+import com.testeapi.vagas.demo.web.records.todo.TodoResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +25,12 @@ import java.util.List;
 @RestController
 @RequestMapping(ApiPaths.TODO_PATH)
 public class TodoController {
-    private final TodoService todoService;
 
-    public TodoController(TodoService todoService) {
-        this.todoService = todoService;
-    }
+    @Autowired
+    private ITodoService todoService;
+
+    @Autowired
+    private IUserService userService;
 
     @Operation(summary = "Listar registros de todo's", description = "Recurso para listar registros de todo's",
             responses = {
@@ -38,7 +42,7 @@ public class TodoController {
     @GetMapping
     public ResponseEntity<List<TodoResponseDTO>> list() {
         List<Todo> todos = todoService.list();
-        return ResponseEntity.status(HttpStatus.OK).body(TodoMapper.toListDTO(todos));
+        return ResponseEntity.status(HttpStatus.OK).body(TodoResponseDTO.toListResponse(todos));
     }
 
     @Operation(summary = "Ciar todo's", description = "Recurso para criar todo's",
@@ -56,8 +60,9 @@ public class TodoController {
             })
     @PostMapping
     public ResponseEntity<TodoResponseDTO> create(@Valid @RequestBody TodoCreateDTO todoCreate) {
-        Todo todoCreatead = todoService.create(todoCreate);
-        return ResponseEntity.status(HttpStatus.CREATED).body(TodoMapper.toDTO(todoCreatead));
+        User user = userService.findById(todoCreate.user_id());
+        TodoResponseDTO todoCreatead = todoService.create(todoCreate, user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(todoCreatead);
     }
 
     @Operation(summary = "Localizar todo", description = "Recurso para localizar todo pelo id",
@@ -77,7 +82,7 @@ public class TodoController {
     @GetMapping("/{id}")
     public ResponseEntity<TodoResponseDTO> findById(@PathVariable Long id) {
         Todo todo = todoService.findById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(TodoMapper.toDTO(todo));
+        return ResponseEntity.status(HttpStatus.OK).body(TodoResponseDTO.todoToResponseDto(todo));
     }
 
     @Operation(summary = "Deletar todo", description = "Recurso para deletar todo", responses = {
@@ -113,7 +118,7 @@ public class TodoController {
     @PatchMapping("/{id}/completed")
     public ResponseEntity<TodoResponseDTO> complete(@PathVariable Long id) {
         Todo todoCompleted = todoService.complete(id);
-        return ResponseEntity.status(HttpStatus.OK).body(TodoMapper.toDTO(todoCompleted));
+        return ResponseEntity.status(HttpStatus.OK).body(TodoResponseDTO.todoToResponseDto(todoCompleted));
     }
 
 }
