@@ -1,10 +1,11 @@
 package com.testeapi.vagas.demo.entities;
 
-import com.testeapi.vagas.demo.domain.enums.Prioridade;
 import com.testeapi.vagas.demo.config.ApiPaths;
-import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
-import com.testeapi.vagas.demo.web.dtos.TodoResponseDTO;
+import com.testeapi.vagas.demo.domain.entities.User;
+import com.testeapi.vagas.demo.domain.enums.Prioridade;
 import com.testeapi.vagas.demo.web.exception.ErrorMessage;
+import com.testeapi.vagas.demo.web.records.todo.TodoCreateDTO;
+import com.testeapi.vagas.demo.web.records.todo.TodoResponseDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,12 @@ public class TodoTestIT {
 
     @Test
     public void createTodoRetornarTodoCriadoComStatus201() {
+        User user = new User();
         TodoResponseDTO responseBody = testClient
                 .post()
                 .uri(ApiPaths.TODO_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(new TodoCreateDTO("teste create", "12345678910", Prioridade.ALTA, 1L))
+                .bodyValue(new TodoCreateDTO("teste create", "12345678910", Prioridade.ALTA, 1L, user))
                 .exchange()
                 .expectStatus()
                 .isCreated()
@@ -37,9 +39,9 @@ public class TodoTestIT {
                 .getResponseBody();
 
         Assertions.assertThat(responseBody).isNotNull();
-        Assertions.assertThat(responseBody.getId()).isNotNull();
-        Assertions.assertThat(responseBody.getNome()).isEqualTo("teste create");
-        Assertions.assertThat(responseBody.getPrioridade()).isEqualTo(Prioridade.ALTA.name());
+        Assertions.assertThat(responseBody.id()).isNotNull();
+        Assertions.assertThat(responseBody.nome()).isEqualTo("teste create");
+        Assertions.assertThat(responseBody.prioridade()).isEqualTo(Prioridade.ALTA.name());
     }
 
     @Test
@@ -48,7 +50,7 @@ public class TodoTestIT {
                 .post()
                 .uri(ApiPaths.TODO_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(new TodoCreateDTO("", "12345678910", Prioridade.ALTA, 1L))
+                .bodyValue(new TodoCreateDTO("", "12345678910", Prioridade.ALTA, 1L, new User()))
                 .exchange()
                 .expectStatus()
                 .isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -66,7 +68,7 @@ public class TodoTestIT {
                 .post()
                 .uri(ApiPaths.TODO_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(new TodoCreateDTO("teste nome valido", "123", Prioridade.ALTA, 1L))
+                .bodyValue(new TodoCreateDTO("teste nome valido", "123", Prioridade.ALTA, 1L, new User()))
                 .exchange()
                 .expectStatus()
                 .isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -84,7 +86,7 @@ public class TodoTestIT {
                 .post()
                 .uri(ApiPaths.TODO_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(new TodoCreateDTO("teste nome valido", "", Prioridade.ALTA, 1L))
+                .bodyValue(new TodoCreateDTO("teste nome valido", "", Prioridade.ALTA, 1L, new User()))
                 .exchange()
                 .expectStatus()
                 .isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -125,9 +127,9 @@ public class TodoTestIT {
                 .getResponseBody();
 
         Assertions.assertThat(responseBody).isNotNull();
-        Assertions.assertThat(responseBody.getId()).isNotNull();
-        Assertions.assertThat(responseBody.getNome()).isEqualTo("Lorem ipsum");
-        Assertions.assertThat(responseBody.getPrioridade()).isEqualTo(Prioridade.BAIXA.name());
+        Assertions.assertThat(responseBody.id()).isNotNull();
+        Assertions.assertThat(responseBody.nome()).isEqualTo("Lorem ipsum");
+        Assertions.assertThat(responseBody.prioridade()).isEqualTo(Prioridade.BAIXA.name());
     }
 
 }
