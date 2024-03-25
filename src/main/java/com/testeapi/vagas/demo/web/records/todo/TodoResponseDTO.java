@@ -2,6 +2,7 @@ package com.testeapi.vagas.demo.web.records.todo;
 
 import com.testeapi.vagas.demo.domain.entities.Todo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public record TodoResponseDTO(
@@ -12,9 +13,14 @@ public record TodoResponseDTO(
         boolean realizado,
         Long user_id
 ) {
-    private static List<TodoResponseDTO> dtoList;
     public static List<TodoResponseDTO> toListResponse(List<Todo> todos) {
-        todos.stream().forEach(todo -> dtoList.add(todoToResponseDto(todo)));
+
+         List<TodoResponseDTO> dtoList = new ArrayList<>();
+
+        for (Todo todo : todos) {
+            dtoList.add(todoToResponseDto(todo));
+        }
+
         return dtoList;
     }
 

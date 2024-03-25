@@ -63,4 +63,9 @@ public class TodoService implements ITodoService {
         return repository.save(todo);
     }
 
+    @Override
+    public List<Todo> findByUserId(Long idUser) {
+        return repository.findByUserId(idUser);
+    }
+
 }

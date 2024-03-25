@@ -1,16 +1,22 @@
 package com.testeapi.vagas.demo.web.controllers;
 
+import com.testeapi.vagas.demo.domain.entities.Todo;
 import com.testeapi.vagas.demo.domain.entities.User;
 import com.testeapi.vagas.demo.config.ApiPaths;
 import com.testeapi.vagas.demo.domain.services.implementation.UserService;
+import com.testeapi.vagas.demo.domain.services.interfaces.ITodoService;
+import com.testeapi.vagas.demo.domain.services.interfaces.IUserService;
+import com.testeapi.vagas.demo.web.records.todo.TodoResponseDTO;
 import com.testeapi.vagas.demo.web.records.user.UserCreateDTO;
 import com.testeapi.vagas.demo.web.records.user.UserResponseDTO;
 import com.testeapi.vagas.demo.web.records.user.UserUpdateDTO;
+import com.testeapi.vagas.demo.web.records.user.UserWithTodoResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +27,11 @@ import java.util.List;
 @RequestMapping(ApiPaths.USER_PATH)
 public class UserController {
 
-    private final UserService service;
+    @Autowired
+    private IUserService service;
 
-    public UserController(UserService service) {
-        this.service = service;
-    }
+    @Autowired
+    private ITodoService todoService;
 
     @Operation(summary = "Listar registros de users", description = "Recurso para listar registros de users",
             responses = {
@@ -144,5 +150,15 @@ public class UserController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}/todos")
+    public ResponseEntity<UserWithTodoResponseDTO> getUserWithTodos(@PathVariable Long id) {
+        User user = service.findById(id);
+        List<Todo> todos = todoService.findByUserId(id);
+        UserWithTodoResponseDTO userWithTodoResponseDTO = new UserWithTodoResponseDTO(UserResponseDTO.userToResponseDto(user), TodoResponseDTO.toListResponse(todos));
+
+        return ResponseEntity.ok(userWithTodoResponseDTO);
+    }
+
 
 }

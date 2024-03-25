@@ -18,4 +18,5 @@ public interface ITodoService {
 
     Todo complete(Long id);
 
+    List<Todo> findByUserId(Long idUser);
 }

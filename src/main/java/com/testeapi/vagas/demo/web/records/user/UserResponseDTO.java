@@ -26,7 +26,9 @@ public record UserResponseDTO(
     }
 
     public static List<UserResponseDTO> toListUsers(List<User> listParam) {
-        listParam.stream().forEach(user -> userList.add(userToResponseDto(user)));
+        if (userList.isEmpty()) {
+            listParam.stream().forEach(user -> userList.add(userToResponseDto(user)));
+        }
         return userList;
     }
 
