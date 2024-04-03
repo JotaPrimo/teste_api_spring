@@ -1,9 +1,8 @@
 package com.testeapi.vagas.demo.web.controllers;
 
+import com.testeapi.vagas.demo.config.ApiPaths;
 import com.testeapi.vagas.demo.domain.entities.Todo;
 import com.testeapi.vagas.demo.domain.entities.User;
-import com.testeapi.vagas.demo.config.ApiPaths;
-import com.testeapi.vagas.demo.web.dtos.mapper.TodoMapper;
 import com.testeapi.vagas.demo.domain.services.interfaces.ITodoService;
 import com.testeapi.vagas.demo.domain.services.interfaces.IUserService;
 import com.testeapi.vagas.demo.web.records.todo.TodoCreateDTO;

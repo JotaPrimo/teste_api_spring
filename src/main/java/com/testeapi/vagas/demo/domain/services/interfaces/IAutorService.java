@@ -1,0 +1,13 @@
+package com.testeapi.vagas.demo.domain.services.interfaces;
+
+import com.testeapi.vagas.demo.domain.entities.Autor;
+import com.testeapi.vagas.demo.web.records.autor.AutorCreateDTO;
+import com.testeapi.vagas.demo.web.records.autor.AutorResponseDTO;
+
+import java.util.List;
+
+public interface IAutorService {
+    List<Autor> list();
+
+    AutorResponseDTO create(AutorCreateDTO autorCreateDTO);
+}

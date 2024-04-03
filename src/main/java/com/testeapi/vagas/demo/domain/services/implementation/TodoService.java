@@ -6,7 +6,6 @@ import com.testeapi.vagas.demo.domain.exceptions.EntityNotFoundException;
 import com.testeapi.vagas.demo.domain.exceptions.TodoAlreadyCompletedException;
 import com.testeapi.vagas.demo.domain.repositories.jpa.ITodoRepository;
 import com.testeapi.vagas.demo.domain.services.interfaces.ITodoService;
-import com.testeapi.vagas.demo.web.dtos.mapper.TodoMapper;
 import com.testeapi.vagas.demo.web.records.todo.TodoCreateDTO;
 import com.testeapi.vagas.demo.web.records.todo.TodoResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,10 @@
 package com.testeapi.vagas.demo.entities;
 
-import com.testeapi.vagas.demo.domain.enums.Prioridade;
 import com.testeapi.vagas.demo.config.ApiPaths;
-import com.testeapi.vagas.demo.web.dtos.TodoCreateDTO;
-import com.testeapi.vagas.demo.web.dtos.TodoResponseDTO;
+import com.testeapi.vagas.demo.domain.enums.Prioridade;
 import com.testeapi.vagas.demo.web.exception.ErrorMessage;
+import com.testeapi.vagas.demo.web.records.todo.TodoCreateDTO;
+import com.testeapi.vagas.demo.web.records.todo.TodoResponseDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
