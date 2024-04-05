@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public record AutorResponseDTO(
+        Long id,
         String nome,
         String apresentacao
 ) {
     public static AutorResponseDTO autorToAutorResponse(Autor autor) {
-        return new AutorResponseDTO(autor.getNome(), autor.getApresentacao());
+        return new AutorResponseDTO(autor.getId(), autor.getNome(), autor.getApresentacao());
     }
     public static List<AutorResponseDTO> toList(List<Autor> autores) {
         List<AutorResponseDTO> dtoList = new ArrayList<>();

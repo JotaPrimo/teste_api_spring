@@ -10,10 +10,13 @@ import java.util.Objects;
 public class Autor {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "varchar", nullable = false)
     private String nome;
 
+    @Column(columnDefinition = "text", nullable = false)
     private String apresentacao;
 
     @Temporal(TemporalType.TIMESTAMP)
