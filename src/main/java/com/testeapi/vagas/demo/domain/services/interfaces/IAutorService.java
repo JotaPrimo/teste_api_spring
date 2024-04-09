@@ -15,4 +15,6 @@ public interface IAutorService {
     void deleteById(Long id);
 
     AutorResponseDTO update(AutorUpdateDTO autorUpdateDTO, Long id);
+
+    AutorResponseDTO getById(Long id);
 }

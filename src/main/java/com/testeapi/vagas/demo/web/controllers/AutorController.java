@@ -27,6 +27,12 @@ public class AutorController {
         return ResponseEntity.status(HttpStatus.OK).body(AutorResponseDTO.toList(autores));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<AutorResponseDTO> show(@PathVariable Long id) {
+        AutorResponseDTO autorResponseDTO = autorService.getById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(autorResponseDTO);
+    }
+
     @PostMapping
     public ResponseEntity<AutorResponseDTO> store(@Valid @RequestBody AutorCreateDTO autorCreateDTO) {
         AutorResponseDTO autorResponseDTO = autorService.create(autorCreateDTO);

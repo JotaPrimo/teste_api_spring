@@ -12,7 +12,6 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +31,16 @@ public class AutorService implements IAutorService {
     @Override
     public List<Autor> list() {
         return autorRepository.findAll();
+    }
+
+    @Override
+    public AutorResponseDTO getById(Long id) {
+        Optional<Autor> optionalAutor = autorRepository.findById(id);
+
+        if (optionalAutor.isPresent()) {
+            return AutorResponseDTO.autorToAutorResponse(optionalAutor.get());
+        }
+        throw new EntityNotFoundException("Autor de id #" +id+ " não encontrado");
     }
 
     @Override
@@ -55,7 +64,7 @@ public class AutorService implements IAutorService {
         if (optionalAutor.isPresent()) {
             autorRepository.deleteById(id);
         } else {
-            throw new EntityNotFoundException("Autor #" +id+ " não encontrado");
+            throw new EntityNotFoundException("Autor de id #" +id+ " não encontrado");
         }
     }
 
@@ -68,7 +77,7 @@ public class AutorService implements IAutorService {
             autorRepository.save(autor);
             return AutorResponseDTO.autorToAutorResponse(autor);
         } else {
-            throw new EntityNotFoundException("Autor #" +id+ " não encontrado");
+            throw new EntityNotFoundException("Autor de id #" +id+ " não encontrado");
         }
     }
 
@@ -82,6 +91,5 @@ public class AutorService implements IAutorService {
             throw new ValidationException("Nome não pode ser vazio nem nullo");
         }
     }
-
 
 }
