@@ -34,17 +34,20 @@ public class LivroController {
 
     @PostMapping
     public ResponseEntity<LivroResponseDTO> store(@RequestBody LivroCreateDTO livroCreateDTO) {
-
+        LivroResponseDTO livroResponseDTO = livroService.store(livroCreateDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(livroResponseDTO);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<LivroResponseDTO> update(@RequestBody LivroUpdateDTO livroUpdateDTO) {
-
+        LivroResponseDTO livroResponseDTO = livroService.update(livroUpdateDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(livroResponseDTO);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete() {
-
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        livroService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

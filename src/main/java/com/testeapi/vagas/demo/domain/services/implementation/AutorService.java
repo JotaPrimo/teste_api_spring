@@ -34,11 +34,11 @@ public class AutorService implements IAutorService {
     }
 
     @Override
-    public AutorResponseDTO getById(Long id) {
+    public Autor getById(Long id) {
         Optional<Autor> optionalAutor = autorRepository.findById(id);
 
         if (optionalAutor.isPresent()) {
-            return AutorResponseDTO.autorToAutorResponse(optionalAutor.get());
+            return optionalAutor.get();
         }
         throw new EntityNotFoundException("Autor de id #" +id+ " não encontrado");
     }

@@ -29,8 +29,8 @@ public class AutorController {
 
     @GetMapping("/{id}")
     public ResponseEntity<AutorResponseDTO> show(@PathVariable Long id) {
-        AutorResponseDTO autorResponseDTO = autorService.getById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(autorResponseDTO);
+        Autor autor = autorService.getById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(AutorResponseDTO.autorToAutorResponse(autor));
     }
 
     @PostMapping

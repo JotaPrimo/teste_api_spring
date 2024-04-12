@@ -16,5 +16,5 @@ public interface IAutorService {
 
     AutorResponseDTO update(AutorUpdateDTO autorUpdateDTO, Long id);
 
-    AutorResponseDTO getById(Long id);
+    Autor getById(Long id);
 }
