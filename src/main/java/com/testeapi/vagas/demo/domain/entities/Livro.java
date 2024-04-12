@@ -30,6 +30,7 @@ public class Livro {
 
     private Integer unidadesDisponiveis;
 
+    @Column(columnDefinition = "INTEGER DEFAULT 0")
     private Integer unidadesEmprestadas;
 
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
@@ -39,9 +40,19 @@ public class Livro {
     @JoinColumn(name = "autor_id")
     private Autor autor;
 
+    @Temporal(TemporalType.DATE)
     private Date dataAquisicao;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition = "timestamp", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        unidadesEmprestadas = 0;
+    }
+
 
     public Livro() {
     }

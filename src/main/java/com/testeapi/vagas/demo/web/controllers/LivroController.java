@@ -6,6 +6,7 @@ import com.testeapi.vagas.demo.domain.services.interfaces.ILivroService;
 import com.testeapi.vagas.demo.web.records.livro.LivroCreateDTO;
 import com.testeapi.vagas.demo.web.records.livro.LivroResponseDTO;
 import com.testeapi.vagas.demo.web.records.livro.LivroUpdateDTO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +34,13 @@ public class LivroController {
     }
 
     @PostMapping
-    public ResponseEntity<LivroResponseDTO> store(@RequestBody LivroCreateDTO livroCreateDTO) {
+    public ResponseEntity<LivroResponseDTO> store(@Valid @RequestBody LivroCreateDTO livroCreateDTO) {
         LivroResponseDTO livroResponseDTO = livroService.store(livroCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(livroResponseDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LivroResponseDTO> update(@RequestBody LivroUpdateDTO livroUpdateDTO) {
+    public ResponseEntity<LivroResponseDTO> update(@Valid @RequestBody LivroUpdateDTO livroUpdateDTO) {
         LivroResponseDTO livroResponseDTO = livroService.update(livroUpdateDTO);
         return ResponseEntity.status(HttpStatus.OK).body(livroResponseDTO);
     }

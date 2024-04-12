@@ -5,7 +5,6 @@ import com.testeapi.vagas.demo.domain.entities.Livro;
 import com.testeapi.vagas.demo.domain.exceptions.EntityNotFoundException;
 import com.testeapi.vagas.demo.domain.repositories.jpa.IAutorRepository;
 import com.testeapi.vagas.demo.domain.repositories.jpa.ILivroRepository;
-import com.testeapi.vagas.demo.domain.services.interfaces.IAutorService;
 import com.testeapi.vagas.demo.domain.services.interfaces.ILivroService;
 import com.testeapi.vagas.demo.web.records.livro.LivroCreateDTO;
 import com.testeapi.vagas.demo.web.records.livro.LivroResponseDTO;
@@ -41,7 +40,7 @@ public class LivroService implements ILivroService {
             Livro livro = optionalLivro.get();
             return LivroResponseDTO.entityToDTO(livro);
         } else {
-            throw new EntityNotFoundException("Livro de id #" + id + "Não encontrado");
+            throw new EntityNotFoundException("Livro de id #" + id + " não encontrado");
         }
     }
 
@@ -53,12 +52,12 @@ public class LivroService implements ILivroService {
         if (optionalLivro.isPresent()) {
             return optionalLivro.get();
         } else {
-            throw new EntityNotFoundException("Livro de id #" + id + "Não encontrado");
+            throw new EntityNotFoundException("Livro de id #" + id + " não encontrado");
         }
     }
 
     @Override
-    @Transactional()
+    @Transactional
     public LivroResponseDTO store(LivroCreateDTO livroCreateDTO) {
         validar();
 
@@ -66,6 +65,8 @@ public class LivroService implements ILivroService {
 
         if (optionalAutor.isPresent()) {
             Livro livro = livroCreateDTO.toEntity(optionalAutor.get());
+            livro.setUnidadesDisponiveis(livro.getUnidadesTotais());
+
             livroRepository.save(livro);
             return LivroResponseDTO.entityToDTO(livro);
         }

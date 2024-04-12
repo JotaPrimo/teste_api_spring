@@ -38,10 +38,10 @@ public record LivroResponseDTO(
                 livro.getCreatedAt());
     }
 
-
     public static List<LivroResponseDTO> toList(List<Livro> livroList) {
         List<LivroResponseDTO> livroResponseDTOS = new ArrayList<>();
-        livroList.stream().map(livro -> livroResponseDTOS.add(entityToDTO(livro)));
+        livroList.stream().forEach(livro -> livroResponseDTOS.add(entityToDTO(livro)));
         return livroResponseDTOS;
     }
+
 }
